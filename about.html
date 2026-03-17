@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>About Us · Live in Evolution</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: rgba(255, 255, 255, 0.06);
+        --panel-strong: rgba(255, 255, 255, 0.1);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.68);
+        --border: rgba(255, 255, 255, 0.12);
+        --shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+        --radius: 16px;
+        --radius-sm: 12px;
+        --accent: #7c5cff;
+        --ok: #2ee59d;
+        --warn: #ffb020;
+        --hot: #ff6b8a;
+        --ice: #00c8ff;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --panel: rgba(0, 0, 0, 0.04);
+          --panel-strong: rgba(0, 0, 0, 0.06);
+          --text: rgba(10, 15, 25, 0.92);
+          --muted: rgba(10, 15, 25, 0.64);
+          --border: rgba(10, 15, 25, 0.12);
+          --shadow: 0 12px 30px rgba(10, 15, 25, 0.12);
+          --accent: #4a35ff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          "PingFang SC",
+          "Hiragino Sans GB",
+          "Microsoft YaHei",
+          "Noto Sans CJK SC",
+          "Noto Sans SC",
+          Arial,
+          sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(1200px 600px at 8% 8%, rgba(124, 92, 255, 0.38), transparent 60%),
+          radial-gradient(1000px 600px at 90% 20%, rgba(0, 200, 255, 0.22), transparent 55%),
+          radial-gradient(900px 600px at 50% 100%, rgba(255, 157, 72, 0.18), transparent 60%),
+          var(--bg);
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 26px 16px 64px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        padding: 10px 2px 18px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 780;
+        letter-spacing: 0.2px;
+      }
+
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, rgba(124, 92, 255, 0.55), rgba(0, 200, 255, 0.18));
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+        display: grid;
+        place-items: center;
+      }
+
+      .logo svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        color: var(--text);
+        cursor: pointer;
+        user-select: none;
+        font-size: 13px;
+      }
+
+      .btn:hover {
+        background: var(--panel-strong);
+      }
+
+      .btn.primary {
+        border-color: rgba(124, 92, 255, 0.32);
+        background: linear-gradient(135deg, rgba(124, 92, 255, 0.28), rgba(255, 255, 255, 0.05));
+      }
+
+      .ico {
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+      }
+
+      .hero {
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) + 8px);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 16px;
+        padding: 18px;
+        position: relative;
+      }
+
+      .hero-grid::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: radial-gradient(700px 260px at 15% 0%, rgba(124, 92, 255, 0.35), transparent 60%),
+          radial-gradient(620px 240px at 90% 0%, rgba(0, 200, 255, 0.22), transparent 60%),
+          radial-gradient(620px 240px at 50% 100%, rgba(255, 157, 72, 0.18), transparent 60%);
+        filter: blur(18px);
+        opacity: 0.9;
+        pointer-events: none;
+      }
+
+      .hero-grid > * {
+        position: relative;
+      }
+
+      @media (max-width: 920px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+        padding: 8px 10px;
+        font-size: 12px;
+        color: var(--muted);
+        width: fit-content;
+      }
+
+      .kicker .spark {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 5px rgba(124, 92, 255, 0.14);
+      }
+
+      .h1 {
+        margin: 10px 0 8px;
+        font-size: 34px;
+        line-height: 1.12;
+        letter-spacing: -0.2px;
+      }
+
+      @media (max-width: 520px) {
+        .h1 {
+          font-size: 28px;
+        }
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        max-width: 56ch;
+      }
+
+      .slogans {
+        margin-top: 14px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .quote {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: var(--radius);
+        padding: 12px 12px 11px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .quote .label {
+        font-size: 12px;
+        color: var(--muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .quote .text {
+        font-size: 16px;
+        font-weight: 760;
+        letter-spacing: 0.1px;
+      }
+
+      .media {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: calc(var(--radius) + 6px);
+        overflow: hidden;
+        min-height: 290px;
+        display: grid;
+      }
+
+      .ph {
+        width: 100%;
+        height: 100%;
+        min-height: 290px;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(460px 240px at 30% 30%, rgba(124, 92, 255, 0.36), transparent 60%),
+          radial-gradient(420px 220px at 80% 20%, rgba(0, 200, 255, 0.22), transparent 55%),
+          radial-gradient(520px 320px at 70% 90%, rgba(255, 157, 72, 0.18), transparent 60%),
+          rgba(255, 255, 255, 0.02);
+      }
+
+      .ph-inner {
+        width: min(420px, 86%);
+        border-radius: 18px;
+        border: 1px dashed rgba(255, 255, 255, 0.24);
+        padding: 14px 14px 12px;
+        background: rgba(0, 0, 0, 0.12);
+      }
+
+      @media (prefers-color-scheme: light) {
+        .ph-inner {
+          background: rgba(255, 255, 255, 0.6);
+        }
+      }
+
+      .ph-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 780;
+        margin-bottom: 6px;
+      }
+
+      .ph-sub {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 0;
+      }
+
+      .section {
+        margin-top: 16px;
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+        border-radius: calc(var(--radius) + 8px);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .section-head .h {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+
+      .section-head .hint {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .content {
+        padding: 16px;
+      }
+
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+
+      @media (max-width: 820px) {
+        .two {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .panel {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius);
+        padding: 14px 14px 12px;
+        overflow: hidden;
+      }
+
+      .panel h3 {
+        margin: 0 0 6px;
+        font-size: 14px;
+      }
+
+      .panel p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .panel .mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .mark .bar {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: currentColor;
+        opacity: 0.9;
+      }
+
+      .values {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      @media (max-width: 1020px) {
+        .values {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 520px) {
+        .values {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .value {
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+        border-radius: var(--radius);
+        padding: 14px 14px 12px;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+        display: grid;
+        gap: 8px;
+      }
+
+      .value .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .value .name {
+        font-weight: 820;
+        letter-spacing: 0.2px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.07);
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .value p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .footer {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 0 2px;
+      }
+
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand" aria-label="品牌">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 3c3.9 0 7 3.1 7 7 0 4.5-3.4 8.1-7 11-3.6-2.9-7-6.5-7-11 0-3.9 3.1-7 7-7Z"
+                stroke="currentColor"
+                stroke-width="1.6"
+                opacity="0.85"
+              />
+              <path
+                d="M9.8 11.8 11.6 13.6 15.8 9.4"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          Live in Evolution
+        </div>
+
+        <nav class="nav" aria-label="页面导航">
+          <a class="btn" href="./index.html" title="回到里程碑表格页">
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M10 6 4 12l6 6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M20 12H4.4"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  opacity="0.75"
+                />
+              </svg>
+            </span>
+            Milestone
+          </a>
+          <a class="btn primary" href="#values" title="查看品牌理念">
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 21a9 9 0 1 0-9-9"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  opacity="0.75"
+                />
+                <path
+                  d="M12 7v5l3.4 2"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            Brand Values
+          </a>
+        </nav>
+      </div>
+
+      <header class="hero" aria-label="About Us 头图区域">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker"><span class="spark"></span> About Us</div>
+            <div class="h1">Live in Evolution</div>
+            <p class="lead">
+              我们相信「变好」不是一次性目标，而是一段可持续、被陪伴的进化旅程。从饮食开始，升级你的能量与生命状态。
+            </p>
+
+            <div class="slogans" aria-label="品牌口号与产品 Slogan">
+              <div class="quote">
+                <div class="label">
+                  <span class="ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M7 12h10"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        opacity="0.85"
+                      />
+                      <path
+                        d="M12 7v10"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        opacity="0.55"
+                      />
+                      <path
+                        d="M12 21a9 9 0 1 0-9-9"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        opacity="0.65"
+                      />
+                    </svg>
+                  </span>
+                  品牌口号（Tagline）
+                </div>
+                <div class="text">Live in Evolution</div>
+              </div>
+
+              <div class="quote">
+                <div class="label">
+                  <span class="ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 21c-4.4 0-8-3.6-8-8 0-5.1 4.1-9.2 8-10 3.9.8 8 4.9 8 10 0 4.4-3.6 8-8 8Z"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        opacity="0.75"
+                      />
+                      <path
+                        d="M9.2 13.1 11 15l3.8-4.2"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  产品 Slogan
+                </div>
+                <div class="text">Eat smart. Level up.</div>
+                <div class="text" style="font-weight: 720; opacity: 0.9">Eat smart now. Level up next.</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px">
+              <a class="btn primary" href="#mission">
+                <span class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5.5 18.5 18.5 5.5"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      opacity="0.75"
+                    />
+                    <path
+                      d="M7.7 7.7h3.7v3.7H7.7V7.7Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      opacity="0.9"
+                    />
+                    <path
+                      d="M12.6 12.6h3.7v3.7h-3.7v-3.7Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                使命愿景
+              </a>
+              <a class="btn" href="#values">
+                <span class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 3l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.9-5.4 2.9 1-6L3.3 9.4l6-.9L12 3Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      opacity="0.85"
+                    />
+                  </svg>
+                </span>
+                品牌理念
+              </a>
+            </div>
+          </div>
+
+          <div class="media" aria-label="品牌图片占位（可替换）">
+            <div class="ph">
+              <div class="ph-inner">
+                <div class="ph-title">
+                  <span class="ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M7 7h10v10H7V7Z"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        opacity="0.8"
+                      />
+                      <path
+                        d="M9 12.2 11.2 14.4 15.4 10.2"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M5 5h14"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        opacity="0.55"
+                      />
+                    </svg>
+                  </span>
+                  图片占位（Hero Visual）
+                </div>
+                <p class="ph-sub">可替换为：品牌主视觉 / 产品场景照 / 团队照片 / 插画（建议 1600×1000）</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="section" id="mission" aria-label="使命愿景">
+        <div class="section-head">
+          <div class="h">
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 21a9 9 0 1 0-9-9"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  opacity="0.75"
+                />
+                <path
+                  d="M8.5 12.2 11 14.7 15.8 9.9"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            使命与愿景
+          </div>
+          <div class="hint">Mission & Vision</div>
+        </div>
+
+        <div class="content">
+          <div class="two">
+            <div class="panel">
+              <div class="mark" style="color: var(--ok)"><span class="bar"></span> Mission</div>
+              <h3>从饮食开始，帮助你吃得更好、更有能量、更强健、并远离慢性病。</h3>
+              <p>
+                我们把“更好的饮食选择”做成日常可执行的系统：减少决策疲劳、用反馈与陪伴建立正循环，让改变不再靠意志力硬扛。
+              </p>
+            </div>
+            <div class="panel">
+              <div class="mark" style="color: var(--ice)"><span class="bar"></span> Vision</div>
+              <h3>人类的超级成长系统：用智能与陪伴，持续升级你的生命状态。</h3>
+              <p>
+                我们相信成长可以被设计：用智能策略、习惯化路径与情绪支持，让每个人都能成为自己的“everyday hero”。
+              </p>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px" class="panel" aria-label="使命愿景配图占位">
+            <div class="mark" style="color: var(--accent)"><span class="bar"></span> Illustration Placeholder</div>
+            <h3 style="margin-bottom: 8px">配图占位：从“吃得更好”到“持续升级”的旅程</h3>
+            <div
+              style="
+                border-radius: 16px;
+                border: 1px dashed rgba(255, 255, 255, 0.22);
+                background: rgba(255, 255, 255, 0.03);
+                overflow: hidden;
+              "
+            >
+              <svg viewBox="0 0 1200 420" role="img" aria-label="插画占位图" style="display: block; width: 100%">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="rgba(124,92,255,0.45)" />
+                    <stop offset="1" stop-color="rgba(0,200,255,0.18)" />
+                  </linearGradient>
+                  <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="rgba(255,176,32,0.22)" />
+                    <stop offset="1" stop-color="rgba(255,107,138,0.14)" />
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="1200" height="420" fill="rgba(255,255,255,0.02)" />
+                <circle cx="240" cy="150" r="140" fill="url(#g1)" opacity="0.8" />
+                <circle cx="980" cy="110" r="160" fill="url(#g2)" opacity="0.8" />
+                <path
+                  d="M140 310 C 340 240, 420 330, 590 250 S 900 200, 1060 280"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.35)"
+                  stroke-width="10"
+                  stroke-linecap="round"
+                />
+                <g fill="rgba(255,255,255,0.75)">
+                  <circle cx="140" cy="310" r="10" />
+                  <circle cx="590" cy="250" r="10" />
+                  <circle cx="1060" cy="280" r="10" />
+                </g>
+                <g fill="rgba(255,255,255,0.7)" font-family="system-ui, -apple-system, Segoe UI, PingFang SC" font-size="22">
+                  <text x="96" y="350">Eat smart</text>
+                  <text x="535" y="292">Build momentum</text>
+                  <text x="1000" y="320">Level up</text>
+                </g>
+              </svg>
+            </div>
+            <p style="margin-top: 10px; margin-bottom: 0; color: var(--muted); font-size: 12px">
+              替换方式：把这里的 SVG 换成你的图片 `<img>`（或直接把 SVG 当占位保留）。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="values" aria-label="品牌理念">
+        <div class="section-head">
+          <div class="h">
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 3l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.9-5.4 2.9 1-6L3.3 9.4l6-.9L12 3Z"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  opacity="0.85"
+                />
+              </svg>
+            </span>
+            品牌理念
+          </div>
+          <div class="hint">What we believe in</div>
+        </div>
+
+        <div class="content">
+          <div class="values">
+            <div class="value">
+              <div class="top">
+                <div class="name">人本主义</div>
+                <div class="chip">
+                  <span class="ico" aria-hidden="true" style="color: var(--ice)">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 12.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        opacity="0.9"
+                      />
+                      <path
+                        d="M5.2 20c1.2-3 3.7-5 6.8-5s5.6 2 6.8 5"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        opacity="0.75"
+                      />
+                    </svg>
+                  </span>
+                  Human-native
+                </div>
+              </div>
+              <p>我们关注人本身的状态，而不仅是外部世界与任务完成。</p>
+            </div>
+
+            <div class="value">
+              <div class="top">
+                <div class="name">自我塑造与人类增强</div>
+                <div class="chip">
+                  <span class="ico" aria-hidden="true" style="color: var(--ok)">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 4v6"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        opacity="0.85"
+                      />
+                      <path
+                        d="M8 10h8"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        opacity="0.85"
+                      />
+                      <path
+                        d="M12 20c4.4 0 8-3.1 8-7 0-4.6-4.1-8.4-8-9-3.9.6-8 4.4-8 9 0 3.9 3.6 7 8 7Z"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        opacity="0.7"
+                      />
+                    </svg>
+                  </span>
+                  Human augmentation
+                </div>
+              </div>
+              <p>
+                我们相信人可以持续变得更好，想要帮助人更健康、更强大、更自信、更有自我效能，更有勇气成为理想中的自己。
+              </p>
+            </div>
+
+            <div class="value">
+              <div class="top">
+                <div class="name">共生协作</div>
+                <div class="chip">
+                  <span class="ico" aria-hidden="true" style="color: var(--accent)">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M8.6 7.2a5.2 5.2 0 1 0 0 9.6"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        opacity="0.85"
+                      />
+                      <path
+                        d="M15.4 16.8a5.2 5.2 0 1 0 0-9.6"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        opacity="0.85"
+                      />
+                      <path
+                        d="M9.2 12h5.6"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        opacity="0.75"
+                      />
+                    </svg>
+                  </span>
+                  Co-evolution
+                </div>
+              </div>
+              <p>
+                我们认为 AI 与人可以建立更好的协作关系，通过绑定为生命共同体，共同进化、共同变好，而不是替代关系。
+              </p>
+            </div>
+
+            <div class="value">
+              <div class="top">
+                <div class="name">快乐成长</div>
+                <div class="chip">
+                  <span class="ico" aria-hidden="true" style="color: var(--hot)">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10Z"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        opacity="0.85"
+                      />
+                      <path
+                        d="M9.2 12.2c.8 1 1.7 1.5 2.8 1.5s2-.5 2.8-1.5"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        opacity="0.8"
+                      />
+                    </svg>
+                  </span>
+                  Joyful growth
+                </div>
+              </div>
+              <p>
+                变好不该靠痛苦硬扛，而应是一段被鼓励、被支持、可重来、充满成就感的旅程（everyday hero）。
+              </p>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px" class="two" aria-label="图片占位：团队与产品场景">
+            <div class="panel">
+              <div class="mark" style="color: var(--warn)"><span class="bar"></span> 图片占位</div>
+              <h3>团队/社区氛围（可替换）</h3>
+              <p>建议放：团队合影、用户共创、线下活动、教练/陪伴场景等。</p>
+              <div style="margin-top: 10px; border-radius: 16px; border: 1px dashed rgba(255, 255, 255, 0.22); overflow: hidden">
+                <div style="height: 160px; background: rgba(255, 255, 255, 0.03); display: grid; place-items: center">
+                  <span style="color: var(--muted); font-size: 12px">Image Placeholder 1 (1200×700)</span>
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="mark" style="color: var(--ice)"><span class="bar"></span> 图片占位</div>
+              <h3>产品/饮食场景（可替换）</h3>
+              <p>建议放：健康餐盘、营养分析界面、AI 陪伴对话、进化轨迹可视化等。</p>
+              <div style="margin-top: 10px; border-radius: 16px; border: 1px dashed rgba(255, 255, 255, 0.22); overflow: hidden">
+                <div style="height: 160px; background: rgba(255, 255, 255, 0.03); display: grid; place-items: center">
+                  <span style="color: var(--muted); font-size: 12px">Image Placeholder 2 (1200×700)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        <div>本页为静态 HTML，双击 `about.html` 即可预览。</div>
+        <div style="display: flex; gap: 10px; align-items: center">
+          <button class="btn" id="btnTop" type="button" title="回到顶部">
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 5l6 6M12 5l-6 6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12 19V6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  opacity="0.75"
+                />
+              </svg>
+            </span>
+            回到顶部
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const btnTop = document.getElementById("btnTop");
+      btnTop?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    </script>
+  </body>
+</html>
+
